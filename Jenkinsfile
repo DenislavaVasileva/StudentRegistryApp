@@ -30,7 +30,7 @@ pipeline {
                 echo 'Triggering deployment on Render...'
                 bat """
                     curl -X POST \\
-                      -H "Authorization: Bearer $RENDER_TOKEN" \\
+                      -H "Authorization: Bearer $RENDER_API_TOKEN" \\
                       -H "Accept: application/json" \\
                       -H "Content-Type: application/json" \\
                       $SERVICE_ID
