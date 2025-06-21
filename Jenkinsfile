@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        RENDER_TOKEN = credentials('RENDER_TOKEN')
+        RENDER_API_TOKEN = credentials('RENDER_TOKEN')
         SERVICE_ID = credentials('SERVICE_ID')
     }
 
