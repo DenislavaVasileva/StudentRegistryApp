@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        RENDER_TOKEN = credentials('RENDER_TOKEN')
+        SERVICE_ID = credentials('SERVICE_ID')
+    }
+
     stages {
         stage('Checkout the repo') {
             steps {
@@ -20,10 +25,16 @@ pipeline {
             }
         }
 
-         stage('Deploy') {
+         stage('Deploy to Render') {
             steps {
-                input message: 'Approve deployment?', ok: 'Deploy'
-                bat 'echo Deploying application...'  // Replace this with real deploy command
+                echo 'Triggering deployment on Render...'
+                bat """
+                    curl -X POST \\
+                      -H "Authorization: Bearer $RENDER_TOKEN" \\
+                      -H "Accept: application/json" \\
+                      -H "Content-Type: application/json" \\
+                      $SERVICE_ID
+                """
             }
         }
     }
